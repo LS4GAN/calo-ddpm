@@ -1,15 +1,5 @@
-from .cyclegan           import CycleGANModel
-from .pix2pix            import Pix2PixModel
-from .autoencoder        import Autoencoder
-from .simple_autoencoder import SimpleAutoencoder
-from .uvcgan2            import UVCGAN2
 
 CGAN_MODELS = {
-    'cyclegan'           : CycleGANModel,
-    'pix2pix'            : Pix2PixModel,
-    'autoencoder'        : Autoencoder,
-    'simple-autoencoder' : SimpleAutoencoder,
-    'uvcgan2'            : UVCGAN2,
 }
 
 def select_model(name, **kwargs):

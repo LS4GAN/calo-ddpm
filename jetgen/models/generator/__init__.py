@@ -1,19 +1,8 @@
 from jetgen.base.networks    import select_base_generator
 from jetgen.models.funcs     import default_model_init
 
-from .vit       import ViTGenerator
-from .vitunet   import ViTUNetGenerator
-from .vitmodnet import ViTModNetGenerator
 
 def select_generator(name, **kwargs):
-    if name == 'vit-v0':
-        return ViTGenerator(**kwargs)
-
-    if name == 'vit-unet':
-        return ViTUNetGenerator(**kwargs)
-
-    if name == 'vit-modnet':
-        return ViTModNetGenerator(**kwargs)
 
     input_shape  = kwargs.pop('input_shape')
     output_shape = kwargs.pop('output_shape')
