@@ -12,11 +12,16 @@ from .datasets.celeba                 import CelebaDataset
 from .datasets.image_domain_folder    import ImageDomainFolder
 from .datasets.image_domain_hierarchy import ImageDomainHierarchy
 from .datasets.zipper                 import DatasetZipper
+from .datasets.noise                  import NoiseDataset
+from .datasets.ndarray_domain_hierarchy import NDArrayDomainHierarchy
+from .datasets.h5array_domain_hierarchy import H5ArrayDomainHierarchy
 
 from .loader_zipper import DataLoaderZipper
 from .transforms    import select_transform
 
 def select_dataset(name, path, split, transform, **kwargs):
+    # pylint: disable=too-many-return-statements
+
     if name == 'celeba':
         return CelebaDataset(
             path, transform = transform, split = split, **kwargs
@@ -40,6 +45,19 @@ def select_dataset(name, path, split, transform, **kwargs):
     if name in [ 'imagedir', 'image-folder' ]:
         return torchvision.datasets.ImageFolder(
             os.path.join(path, split), transform = transform, **kwargs
+        )
+
+    if name == 'noise':
+        return NoiseDataset(transform = transform, **kwargs)
+
+    if name == 'ndarray-domain-hierarchy':
+        return NDArrayDomainHierarchy(
+            path, transform = transform, split = split, **kwargs
+        )
+
+    if name == 'h5array-domain-hierarchy':
+        return H5ArrayDomainHierarchy(
+            path, transform = transform, split = split, **kwargs
         )
 
     raise ValueError(f"Unknown dataset: {name}")
