@@ -61,7 +61,9 @@ class Args:
             raise RuntimeError(
                 (
                     f"Config collision detected in '{self.savedir}'"
-                    f" . Difference:\n{diff}"
+                    f" . Difference:\n{diff}\n"
+                    "If you want to overwrite the config, delete the old"
+                    f" one in '{self.savedir}'"
                 )
             )
 
