@@ -4,7 +4,7 @@ import tqdm
 from jetgen.config      import Args
 from jetgen.data        import construct_data_loaders
 from jetgen.torch.funcs import get_torch_device_smart, seed_everything
-from jetgen.cgan        import construct_model
+from jetgen.gen         import construct_model
 from jetgen.utils.log   import setup_logging
 
 from .metrics   import LossMetrics

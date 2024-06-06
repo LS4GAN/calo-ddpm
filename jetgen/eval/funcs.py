@@ -8,7 +8,7 @@ from jetgen.consts            import (
 )
 from jetgen.data              import construct_data_loaders
 from jetgen.torch.funcs       import get_torch_device_smart, seed_everything
-from jetgen.cgan              import construct_model
+from jetgen.gen               import construct_model
 
 def slice_data_loader(loader, batch_size, n_samples = None):
     if n_samples is None:

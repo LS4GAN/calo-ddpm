@@ -5,7 +5,7 @@ import torch
 
 from jetgen.consts import ROOT_OUTDIR
 from jetgen.config import Args
-from jetgen.cgan   import construct_model
+from jetgen.gen    import construct_model
 
 LOGGER = logging.getLogger('jetgen.train')
 
