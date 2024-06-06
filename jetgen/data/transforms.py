@@ -1,9 +1,14 @@
+import torch
 import torchvision
 from torchvision import transforms
 
 from jetgen.torch.select import extract_name_kwargs
 
+FromNumpy = lambda : torch.from_numpy
+
 TRANSFORM_DICT = {
+    'to-tensor'              : transforms.ToTensor,
+    'from-numpy'             : FromNumpy,
     'center-crop'            : transforms.CenterCrop,
     'color-jitter'           : transforms.ColorJitter,
     'random-crop'            : transforms.RandomCrop,
@@ -11,13 +16,6 @@ TRANSFORM_DICT = {
     'random-flip-horizontal' : transforms.RandomHorizontalFlip,
     'random-rotation'        : transforms.RandomRotation,
     'resize'                 : transforms.Resize,
-    'CenterCrop'             : transforms.CenterCrop,
-    'ColorJitter'            : transforms.ColorJitter,
-    'RandomCrop'             : transforms.RandomCrop,
-    'RandomVerticalFlip'     : transforms.RandomVerticalFlip,
-    'RandomHorizontalFlip'   : transforms.RandomHorizontalFlip,
-    'RandomRotation'         : transforms.RandomRotation,
-    'Resize'                 : transforms.Resize,
 }
 
 def select_single_transform(transform):
@@ -29,14 +27,15 @@ def select_single_transform(transform):
     return TRANSFORM_DICT[name](**kwargs)
 
 def select_transform(transform):
+    if transform is None:
+        return None
+
     result = []
 
-    if transform is not None:
-        if not isinstance(transform, (list, tuple)):
-            transform = [ transform, ]
+    if not isinstance(transform, (list, tuple)):
+        transform = [ transform, ]
 
-        result = [ select_single_transform(x) for x in transform ]
-
-    result.append(torchvision.transforms.ToTensor())
+    result = [ select_single_transform(x) for x in transform ]
 
     return torchvision.transforms.Compose(result)
+
