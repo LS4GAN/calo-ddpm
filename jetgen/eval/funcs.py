@@ -79,13 +79,16 @@ def start_model_eval(path, epoch, model_state, merge_type, **config_overrides):
     return (args, model, evaldir)
 
 def load_eval_model_dset_from_cmdargs(
-    cmdargs, merge_type = MERGE_NONE, **config_overrides
+    cmdargs, merge_type = MERGE_NONE, domain = None, **config_overrides
 ):
     args, model, evaldir = start_model_eval(
         cmdargs.model, cmdargs.epoch, cmdargs.model_state,
         merge_type = merge_type,
         batch_size = cmdargs.batch_size, **config_overrides
     )
+
+    if domain is not None:
+        args.config.data.datasets = [ args.config.data.datasets[domain], ]
 
     data_it = construct_data_loaders(
         args.config.data, args.config.batch_size, split = cmdargs.split
