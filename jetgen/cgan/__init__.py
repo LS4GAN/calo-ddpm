@@ -1,5 +1,9 @@
+from .gan  import GAN
+from .ddpm import DDPMModel
 
 CGAN_MODELS = {
+    'gan'  : GAN,
+    'ddpm' : DDPMModel,
 }
 
 def select_model(name, **kwargs):
