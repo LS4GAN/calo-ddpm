@@ -1,8 +1,11 @@
 from jetgen.base.networks    import select_base_generator
 from jetgen.models.funcs     import default_model_init
 
+from .dcgan import DCGANGenerator
 
 def select_generator(name, **kwargs):
+    if name == 'dcgan':
+        return DCGANGenerator(**kwargs)
 
     input_shape  = kwargs.pop('input_shape')
     output_shape = kwargs.pop('output_shape')
